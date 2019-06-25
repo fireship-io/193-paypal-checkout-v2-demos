@@ -41,7 +41,7 @@ function Product({ product }) {
     return (
       <div>
         <h1>Congrats, you just bought {product.name}!</h1>
-        <img src={gif} />
+        <img alt={product.description} src={gif} />
       </div>
     );
   }
@@ -52,7 +52,7 @@ function Product({ product }) {
       <h1>
         {product.description} for ${product.price}
       </h1>
-      <img src={product.image} width="200" />
+      <img alt={product.description} src={product.image} width="200" />
       <div ref={paypalRef} />
     </div>
   );
