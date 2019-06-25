@@ -3,16 +3,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import chair from './chair.jpg';
 import gif from './giphy.gif';
 
-function App() {
+function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
-
-  let paypalRef = useRef();
-
-  const product = {
-    price: 777.77,
-    description: 'fancy chair, like new',
-    img: 'assets/couch.jpg',
-  };
+  const paypalRef = useRef();
 
   useEffect(() => {
     window.paypal
@@ -36,28 +29,43 @@ function App() {
           console.log(order);
         },
         onError: err => {
-          console.log(err);
+          console.error(err);
         },
       })
       .render(paypalRef.current);
   }, [product.description, product.price]);
 
+  if (paidFor) {
+    return (
+      <div>
+        <h1>Congrats, you just bought {product.name}!</h1>
+        <img src={gif} />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1>
+        {product.description} for ${product.price}
+      </h1>
+      <img src={product.image} width="200" />
+      <div ref={paypalRef} />
+    </div>
+  );
+}
+
+function App() {
+  const product = {
+    price: 777.77,
+    name: 'comfy chair',
+    description: 'fancy chair, like new',
+    image: chair,
+  };
+
   return (
     <div className="App">
-      {paidFor ? (
-        <div>
-          <h1>Congrats, you just bought comfy chair!</h1>
-          <img src={gif} />
-        </div>
-      ) : (
-        <div>
-          <h1>
-            {product.description} for ${product.price}
-          </h1>
-          <img src={chair} width="200" />
-          <div ref={paypalRef} />
-        </div>
-      )}
+      <Product product={product} />
     </div>
   );
 }
