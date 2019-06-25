@@ -5,6 +5,7 @@ import gif from './giphy.gif';
 
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
+  const [error, setError] = useState(null);
   const paypalRef = useRef();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function Product({ product }) {
           console.log(order);
         },
         onError: err => {
+          setError(err);
           console.error(err);
         },
       })
@@ -46,6 +48,7 @@ function Product({ product }) {
 
   return (
     <div>
+      {error && <div>Uh oh, an error occurred! {error.message}</div>}
       <h1>
         {product.description} for ${product.price}
       </h1>
