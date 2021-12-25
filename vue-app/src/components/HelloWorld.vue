@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div v-if="!paidFor">
+    
+    <div v-if="paidFor">
+      <h1>Noice, you bought a beautiful lamp!</h1>
+
+      <img src="https://media.giphy.com/media/j5QcmXoFWl4Q0/giphy.gif">
+    </div>
+  
+    <div v-else>
       <h1>Buy this Lamp - ${{ product.price }} OBO</h1>
 
       <p>{{ product.description }}</p>
 
       <img width="400" src="https://images-na.ssl-images-amazon.com/images/I/61yZD4-mKjL._SX425_.jpg" />
-    </div>
-
-    <div v-if="paidFor">
-      <h1>Noice, you bought a beautiful lamp!</h1>
-
-      <img src="https://media.giphy.com/media/j5QcmXoFWl4Q0/giphy.gif">
     </div>
 
     <div ref="paypal"></div>
